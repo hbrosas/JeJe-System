@@ -499,7 +499,7 @@ switchLabel
 
 forControl
     :   enhancedForControl
-    |   forInit? ';' expression? ';' forUpdate?
+    |   forInit? expression? ';' forUpdate?
     ;
 
 forInit
@@ -512,7 +512,7 @@ enhancedForControl
     ;
 
 forUpdate
-    :   expressionList
+    :   forUpdateExpression
     ;
 
 // EXPRESSIONS
@@ -524,9 +524,52 @@ parExpression
 expressionList
     :   expression (',' expression)*
     ;
+    
+forUpdateExpression
+	:	primary
+	|	expression ('++' | '--')
+    |   ('+'|'-'|'++'|'--') expression
+    |   ('~'|'!') expression
+    |   expression ('*'|'/'|'%') expression
+    |   expression ('+'|'-') expression
+	;
 
 statementExpression
-    :   expression
+    :   primary
+    |   statementExpression '.' Identifier '(' expressionList? ')'
+    |   statementExpression '.' 'th1s'
+    |   'n3w' creator
+    |   '(' typeType ')' statementExpression
+    |   statementExpression ('++' | '--')
+    |   ('+'|'-'|'++'|'--') statementExpression
+    |   ('~'|'!') statementExpression
+    |   statementExpression ('*'|'/'|'%') statementExpression
+    |   statementExpression ('+'|'-') statementExpression
+    |   statementExpression ('<' '<' | '>' '>' '>' | '>' '>') statementExpression
+    |   statementExpression ('<=' | '>=' | '>' | '<') statementExpression
+    |   statementExpression '1nst4nc30f' typeType
+    |   statementExpression ('==' | '!=') statementExpression
+    |   statementExpression '&' statementExpression
+    |   statementExpression '^' statementExpression
+    |   statementExpression '|' statementExpression
+    |   statementExpression '&&' statementExpression
+    |   statementExpression '||' statementExpression
+    |   statementExpression '?' statementExpression ':' statementExpression
+    |   <assoc=right> statementExpression
+        (   '='
+        |   '+='
+        |   '-='
+        |   '*='
+        |   '/='
+        |   '&='
+        |   '|='
+        |   '^='
+        |   '>>='
+        |   '>>>='
+        |   '<<='
+        |   '%='
+        )
+        statementExpression
     ;
 
 constantExpression
