@@ -547,7 +547,32 @@ variableExpression
     |   ('+'|'-') variableExpression
     |   variableExpression ('*'|'/'|'%') variableExpression
     |   variableExpression ('+'|'-') variableExpression
-    |   variableExpression '^' variableExpression
+    |   ('~'|'!') expression
+    |   expression ('<' '<' | '>' '>' '>' | '>' '>') expression
+    |   expression ('<=' | '>=' | '>' | '<') expression
+    |   expression '1nst4nc30f' typeType
+    |   expression ('==' | '!=') expression
+    |   expression '&' expression
+    |   expression '^' expression
+    |   expression '|' expression
+    |   expression '&&' expression
+    |   expression '||' expression
+    |   expression '?' expression ':' expression
+    |   <assoc=right> expression
+        (   '='
+        |   '+='
+        |   '-='
+        |   '*='
+        |   '/='
+        |   '&='
+        |   '|='
+        |   '^='
+        |   '>>='
+        |   '>>>='
+        |   '<<='
+        |   '%='
+        )
+        expression
 	;
 
 expression
